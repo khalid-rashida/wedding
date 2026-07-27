@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>دعوة زفاف عائلة الفقي</title>
+  <meta name="theme-color" content="#eee2d1" />
+
+  <!-- معاينة الرابط في واتساب والمنصات الاجتماعية -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_SA" />
+  <meta property="og:title" content="دعوة زفاف عائلة الفقي" />
+  <meta property="og:url" content="https://khalid-rashida.github.io/wedding/" />
+  <meta property="og:image" content="https://khalid-rashida.github.io/wedding/assets/preview.jpg" />
+  <meta property="og:image:secure_url" content="https://khalid-rashida.github.io/wedding/assets/preview.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1254" />
+  <meta property="og:image:height" content="1254" />
+  <meta property="og:image:alt" content="دعوة زفاف عائلة الفقي" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="دعوة زفاف عائلة الفقي" />
+  <meta name="twitter:image" content="https://khalid-rashida.github.io/wedding/assets/preview.jpg" />
+
+  <style>
+    :root {
+      --paper: #eee2d1;
+      --purple: #51406d;
+      --gold: #b48743;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--paper); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--purple);
+      font-family: Tahoma, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button, a { -webkit-tap-highlight-color: transparent; }
+
+    /* شاشة البداية */
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      background: #eadcca;
+      transition: opacity .75s ease, visibility .75s ease;
+    }
+    .intro.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .intro-button {
+      position: relative;
+      display: block;
+      width: min(100vw, 760px);
+      height: 100vh;
+      padding: 0;
+      border: 0;
+      background: #eadcca;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .intro-button img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .9s cubic-bezier(.2,.8,.2,1), filter .5s ease;
+    }
+    .intro-button:hover img { transform: scale(1.018); }
+    .intro-hint {
+      position: absolute;
+      right: 50%;
+      bottom: max(22px, env(safe-area-inset-bottom));
+      transform: translateX(50%);
+      min-width: 180px;
+      padding: 11px 22px;
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius: 999px;
+      color: #fff8ec;
+      background: rgba(67, 47, 79, .72);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 30px rgba(42,24,39,.22);
+      font-size: clamp(14px, 3.8vw, 18px);
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,.25);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { transform: translateX(50%) scale(1.035); } }
+
+    /* حلقة ذهبية متحركة حول ختم الشمع فقط */
+    .seal-glow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: clamp(82px, 20vw, 145px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%) scale(.92);
+      border: 2px solid rgba(255, 222, 125, .9);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow:
+        0 0 7px rgba(255, 231, 155, .95),
+        0 0 18px rgba(226, 177, 66, .72),
+        inset 0 0 8px rgba(255, 235, 174, .55);
+      animation: sealRingPulse 1.7s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+    .seal-glow::after {
+      content: "";
+      position: absolute;
+      inset: -5px;
+      border: 1px solid rgba(255, 216, 104, .48);
+      border-radius: 50%;
+      box-shadow: 0 0 13px rgba(229, 179, 61, .42);
+      animation: sealOuterRingPulse 1.7s ease-in-out infinite;
+    }
+    @keyframes sealRingPulse {
+      0%, 100% { opacity: .68; transform: translate(-50%, -50%) scale(.97); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.025); }
+    }
+    @keyframes sealOuterRingPulse {
+      0%, 100% { opacity: .28; transform: scale(.98); }
+      50% { opacity: .58; transform: scale(1.025); }
+    }
+
+    /* زر الموسيقى داخل الدعوة */
+    .music-toggle {
+      position: fixed;
+      top: max(14px, env(safe-area-inset-top));
+      left: 14px;
+      z-index: 40;
+      display: none;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 1px solid rgba(180,135,67,.55);
+      border-radius: 50%;
+      background: rgba(255,248,237,.88);
+      color: #6a4d74;
+      box-shadow: 0 6px 18px rgba(65,43,61,.18);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      font-size: 21px;
+      line-height: 1;
+    }
+    body.opened .music-toggle { display: grid; }
+    .music-toggle:active { transform: scale(.94); }
+    .music-toggle:focus-visible { outline: 3px solid rgba(180,135,67,.65); outline-offset: 3px; }
+
+    /* ورقة الدعوة */
+    main {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .8s ease .12s, transform .8s ease .12s;
+    }
+    body.opened main { opacity: 1; transform: none; }
+
+    .invitation {
+      position: relative;
+      width: min(100%, 1024px);
+      margin: 0 auto;
+      line-height: 0;
+      background: var(--paper);
+      box-shadow: 0 0 35px rgba(75,51,44,.12);
+      overflow: hidden;
+    }
+    .invitation-image {
+      display: block;
+      width: calc(100% + 4px);
+      max-width: none;
+      margin-inline-start: -2px;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* أرقام العداد فوق الخانات الفارغة بالصورة */
+    .countdown {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      line-height: 1;
+    }
+    .count-value {
+      position: absolute;
+      top: 56.05%;
+      width: 15.8%;
+      height: 3.05%;
+      display: grid;
+      place-items: center;
+      transform: translate(-50%, -6px);
+      color: #4f3d6b;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 8.4vw, 82px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      text-shadow: 0 1px 0 rgba(255,255,255,.7), 0 2px 4px rgba(83,58,65,.12);
+    }
+    .days    { left: 13.8%; }
+    .hours   { left: 37.8%; }
+    .minutes { left: 61.8%; }
+    .seconds { left: 85.8%; }
+
+    /* منطقة النقر على تصميم الموقع */
+    .location-link {
+      position: absolute;
+      left: 6%;
+      top: 88.35%;
+      width: 88%;
+      height: 8.7%;
+      z-index: 4;
+      border-radius: 20px;
+      line-height: normal;
+      text-indent: -9999px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .location-link:focus-visible {
+      outline: 4px solid rgba(81,64,109,.75);
+      outline-offset: -8px;
+    }
+
+    .noscript {
+      margin: 0;
+      padding: 12px;
+      text-align: center;
+      line-height: 1.7;
+      background: #fff4e6;
+    }
+
+    @media (min-width: 1025px) {
+      body { padding-inline: 20px; }
+      .count-value { font-size: 78px; }
+    }
+    @media (max-aspect-ratio: 3/4) {
+      .intro-button { width: 100vw; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <section class="intro" id="intro" aria-label="فتح دعوة زفاف عائلة الفقي">
+    <button class="intro-button" id="openInvitation" type="button" aria-label="اضغط لفتح دعوة زفاف عائلة الفقي">
+      <img id="envelopeImage" src="assets/envelope.webp" alt="دعوة زفاف عائلة الفقي" width="1254" height="1254" fetchpriority="high" decoding="async" />
+      <span class="seal-glow" id="sealGlow" aria-hidden="true"></span>
+      <span class="intro-hint">اضغط</span>
+    </button>
+  </section>
+
+  <main id="invitationContent">
+    <div class="invitation">
+      <img class="invitation-image" src="assets/invitation-long.webp" alt="تفاصيل دعوة زفاف عائلة الفقي" width="1024" height="6230" decoding="async" />
+
+      <div class="countdown" aria-label="الوقت المتبقي على حفل الزفاف">
+        <span class="count-value days" id="days">00</span>
+        <span class="count-value hours" id="hours">00</span>
+        <span class="count-value minutes" id="minutes">00</span>
+        <span class="count-value seconds" id="seconds">00</span>
+      </div>
+
+      <a class="location-link"
+         href="https://www.google.com/maps/search/?api=1&query=%D9%82%D8%A7%D8%B9%D8%A9+%D8%A7%D9%84%D8%AA%D9%87%D8%A7%D9%86%D9%8A+%D8%AC%D8%AF%D8%A9"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="فتح موقع قاعة التهاني في خرائط Google">فتح موقع قاعة التهاني</a>
+    </div>
+  </main>
+
+  <audio id="weddingMusic" src="assets/music.m4a" preload="metadata" loop playsinline></audio>
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="إيقاف الموسيقى" title="إيقاف الموسيقى">🔊</button>
+
+  <noscript><p class="noscript">يرجى تفعيل JavaScript لتشغيل العداد.</p></noscript>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const openButton = document.getElementById('openInvitation');
+    const envelopeImage = document.getElementById('envelopeImage');
+    const sealGlow = document.getElementById('sealGlow');
+
+    // مركز الختم داخل صورة الظرف الأصلية (1254×1254).
+    // نحسب موضعه الفعلي بعد object-fit: cover حتى يبقى مركز الدائرة
+    // مطابقًا لمركز ختم الشمع على الجوال والكمبيوتر وفي جميع المقاسات.
+    const sealPoint = { x: 630, y: 800 };
+
+    function centerGlowOnSeal() {
+      const box = openButton.getBoundingClientRect();
+      const sourceWidth = envelopeImage.naturalWidth || 1254;
+      const sourceHeight = envelopeImage.naturalHeight || 1254;
+      const scale = Math.max(box.width / sourceWidth, box.height / sourceHeight);
+      const renderedWidth = sourceWidth * scale;
+      const renderedHeight = sourceHeight * scale;
+      const offsetX = (box.width - renderedWidth) / 2;
+      const offsetY = (box.height - renderedHeight) / 2;
+
+      sealGlow.style.left = `${offsetX + sealPoint.x * scale}px`;
+      sealGlow.style.top = `${offsetY + sealPoint.y * scale}px`;
+    }
+
+    if (envelopeImage.complete) centerGlowOnSeal();
+    envelopeImage.addEventListener('load', centerGlowOnSeal, { once: true });
+    window.addEventListener('resize', centerGlowOnSeal);
+
+    const music = document.getElementById('weddingMusic');
+    const musicToggle = document.getElementById('musicToggle');
+
+    function updateMusicButton() {
+      const isPaused = music.paused;
+      musicToggle.textContent = isPaused ? '🔇' : '🔊';
+      musicToggle.setAttribute('aria-label', isPaused ? 'تشغيل الموسيقى' : 'إيقاف الموسيقى');
+      musicToggle.title = isPaused ? 'تشغيل الموسيقى' : 'إيقاف الموسيقى';
+    }
+
+    function openInvitation() {
+      // يبدأ الصوت داخل حدث الضغط نفسه حتى تسمح به متصفحات الجوال.
+      music.volume = 0.82;
+      const playPromise = music.play();
+      if (playPromise) playPromise.catch(() => updateMusicButton());
+
+      document.body.classList.add('opened');
+      intro.classList.add('is-hidden');
+      updateMusicButton();
+      window.setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }, 50);
+    }
+
+    musicToggle.addEventListener('click', () => {
+      if (music.paused) {
+        music.play().catch(() => {});
+      } else {
+        music.pause();
+      }
+      updateMusicButton();
+    });
+    music.addEventListener('play', updateMusicButton);
+    music.addEventListener('pause', updateMusicButton);
+
+    openButton.addEventListener('click', openInvitation);
+
+    // بداية يوم الثلاثاء 11 أغسطس 2026 بتوقيت السعودية
+    const weddingDate = new Date('2026-08-11T00:00:00+03:00').getTime();
+    const el = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      minutes: document.getElementById('minutes'),
+      seconds: document.getElementById('seconds')
+    };
+
+    const pad = value => String(value).padStart(2, '0');
+
+    function updateCountdown() {
+      let remaining = weddingDate - Date.now();
+      if (remaining <= 0) {
+        Object.values(el).forEach(node => node.textContent = '00');
+        return;
+      }
+
+      const day = 1000 * 60 * 60 * 24;
+      const hour = 1000 * 60 * 60;
+      const minute = 1000 * 60;
+
+      el.days.textContent = pad(Math.floor(remaining / day));
+      remaining %= day;
+      el.hours.textContent = pad(Math.floor(remaining / hour));
+      remaining %= hour;
+      el.minutes.textContent = pad(Math.floor(remaining / minute));
+      remaining %= minute;
+      el.seconds.textContent = pad(Math.floor(remaining / 1000));
+    }
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
